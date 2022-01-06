@@ -1,22 +1,20 @@
 def solution(n):
-    count = 1  # 2는 무조건 소수이기 때문에 미리 포함
-    isDemical = True
+    demicals = [True] * n
 
-    for num in range(3, n + 1, 2):
-        isDemical = True
-        for i in range(2, int(num ** (1/2)) + 1):
-            if num % i == 0:
-                isDemical = False
-                break
+    demicals[0] = False
+    for i in range(2, int(n ** (1/2)) + 1):
+        if demicals[i - 1]:
+            for j in range(i * 2, n + 1, i):
+                demicals[j - 1] = False
 
-        if isDemical:
-            count += 1
-
-    print(count)
-    return count
+    print(demicals.count(True))
+    return demicals.count(True)
 
 
 solution(10)  # 4
 solution(5)  # 3
 
 # https://programmers.co.kr/learn/courses/30/lessons/12921
+
+# 에라토스테네스의 체
+# https://ko.wikipedia.org/wiki/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98_%EC%B2%B4
